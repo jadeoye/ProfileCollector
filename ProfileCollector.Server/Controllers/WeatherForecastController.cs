@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
+using ProfileCollector.Application.Queries.WeatherForecasts;
+using ProfileCollector.Application.QueryHandlers.WeatherForecasts.Dtos;
 
 namespace ProfileCollector.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("api/[controller]")]
+    public class WeatherForecastController : BaseController
     {
         private static readonly string[] Summaries = new[]
         {
@@ -19,15 +21,11 @@ namespace ProfileCollector.Server.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<ActionResult<ListWeatherForecastResponse>> Get(CancellationToken cancellationToken)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var request = new ListWeatherForecastsQuery();
+            var response = await Mediator.Send(request, cancellationToken);
+            return Ok(response);
         }
     }
 }
