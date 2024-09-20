@@ -19,4 +19,9 @@
     <ProjectReference Include="..\ProfileCollector.Domain\ProfileCollector.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\" />
+    <Folder Include="QueryHandlers\" />
+  </ItemGroup>
+
 </Project>

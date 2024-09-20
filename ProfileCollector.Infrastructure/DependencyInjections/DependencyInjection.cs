@@ -31,7 +31,6 @@ namespace ProfileCollector.Infrastructure.DependencyInjections
                 return store.OpenAsyncSession();
             });
 
-            services.AddTransient<IWeatherForecastRepository, WeatherForecastRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
 
             return services;
