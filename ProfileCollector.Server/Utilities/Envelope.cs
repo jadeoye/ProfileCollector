@@ -42,6 +42,16 @@
             return new Envelope<T>(result, null);
         }
 
+        public static Envelope Created()
+        {
+            return new Envelope(null);
+        }
+
+        public static Envelope<T> Created<T>(T result)
+        {
+            return new Envelope<T>(result, null);
+        }
+
         public static Envelope Error(string errorMessage)
         {
             return new Envelope(errorMessage);

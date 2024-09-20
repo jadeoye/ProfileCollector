@@ -30,5 +30,15 @@ namespace ProfileCollector.Server.Controllers
         {
             return base.Accepted(Envelope.Accepted(result));
         }
+
+        protected new ActionResult Created(string url, object data)
+        {
+            return base.Created(url, Envelope.Created(data));
+        }
+
+        protected ActionResult Created<T>(string url, T result)
+        {
+            return base.Created(url, Envelope.Created(result));
+        }
     }
 }
