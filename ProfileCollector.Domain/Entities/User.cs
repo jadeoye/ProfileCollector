@@ -12,9 +12,9 @@ namespace ProfileCollector.Domain.Entities
 {
     public class User : Entity<string>, IAggregateRoot
     {
-        public string FirstName { get; protected set; }
-        public string LastName { get; protected set; }
-        public string? MiddleName { get; protected set; }
+        public string FirstName { get; private set; }
+        public string LastName { get; private set; }
+        public string? MiddleName { get; private set; }
         public virtual Address? Address { get; private set; }
 
         private User()
@@ -22,7 +22,7 @@ namespace ProfileCollector.Domain.Entities
             Id = Guid.NewGuid().ToString();
         }
 
-        private User(string firstName, string lastName, string middleName) : this()
+        private User(string firstName, string lastName, string? middleName) : this()
         {
             FirstName = firstName;
             LastName = lastName;

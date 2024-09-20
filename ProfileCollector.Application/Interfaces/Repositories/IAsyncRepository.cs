@@ -11,5 +11,6 @@ namespace ProfileCollector.Application.Interfaces.Repositories
     public interface IAsyncRepository<T, TId> where T : Entity<TId>, IAggregateRoot where TId : IComparable<TId>
     {
         Task<T> AddAsync(T entity, bool saveChanges = false, CancellationToken cancellationToken = default);
+        Task<T> GetByIdAsync(string id, CancellationToken cancellationToken = default);
     }
 }

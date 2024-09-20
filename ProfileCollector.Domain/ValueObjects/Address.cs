@@ -9,11 +9,16 @@ namespace ProfileCollector.Domain.ValueObjects
 {
     public class Address : ValueObject<Address>
     {
-        public string Street { get; }
-        public string City { get; }
-        public string State { get; }
-        public string Zip { get; }
-        public string Country { get; }
+        // ideally these should be immutable without setters
+        // we need a way for ravendb to populate these values
+
+        public string Street { get; init; }
+        public string City { get; init; }
+        public string State { get; init; }
+        public string Zip { get; init; }
+        public string Country { get; init; }
+
+        private Address() { }
 
         private Address(string street, string city, string state, string zip, string country)
         {

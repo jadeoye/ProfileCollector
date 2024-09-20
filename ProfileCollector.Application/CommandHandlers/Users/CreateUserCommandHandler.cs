@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProfileCollector.Application.CommandHandlers.Users
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
+    internal class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
     {
         private readonly IUserRepository _userRepository;
         public CreateUserCommandHandler(IUserRepository userRepository)

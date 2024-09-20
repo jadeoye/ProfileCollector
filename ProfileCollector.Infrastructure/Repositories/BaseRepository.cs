@@ -30,5 +30,12 @@ namespace ProfileCollector.Infrastructure.Repositories
 
             return entity;
         }
+
+        public virtual async Task<T> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+        {
+            var result = await _session.LoadAsync<T>(id, cancellationToken);
+
+            return result;
+        }
     }
 }
