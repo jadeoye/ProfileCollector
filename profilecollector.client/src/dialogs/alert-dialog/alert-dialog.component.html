@@ -1,0 +1,5 @@
+<h2 mat-dialog-title class="title" [ngClass]="{'error' : alert.notificationType == NotificationType.Error}">{{ alert.title }}</h2>
+<mat-dialog-content class="content">{{ alert.body }}</mat-dialog-content>
+<mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close color="primary">Close</button>
+</mat-dialog-actions>

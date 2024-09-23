@@ -1,0 +1,24 @@
+<h2 mat-dialog-title class="title success">Profile Saved!</h2>
+
+<mat-dialog-content class="codntent">
+  <p><b>First Name:</b> {{ profile.firstName }}</p>
+  <p><b>Middle Name:</b> {{ profile.middleName?.trim() ? profile.middleName : '[Not provided]' }}</p>
+  <p><b>Last Name:</b> {{ profile.lastName }}</p>
+  <p><b>Full Name:</b> {{ profile.fullName }}</p>
+
+  <div *ngIf="profile.address">
+    <hr />
+    <p><b>Street:</b> {{ profile.address.street }}</p>
+    <p><b>City:</b> {{ profile.address.city }}</p>
+    <p><b>State:</b> {{ profile.address.state }}</p>
+    <p><b>ZIP:</b> {{ profile.address.zip }}</p>
+    <p><b>Country:</b> {{ profile.address.country }}</p>
+  </div>
+
+  <div *ngIf="!profile.address">
+    <p>No Address information provided during collection.</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close color="primary">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,17 @@
+.title {
+  text-align: center;
+}
+
+.content {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.actions {
+  justify-content: center;
+  display: flex;
+}
+
+.success {
+    color: green;
+}
