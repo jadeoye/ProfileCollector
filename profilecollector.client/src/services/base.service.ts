@@ -12,10 +12,10 @@ export class BaseService {
   protected handleError(error: HttpErrorResponse) {
     let message: string = ''
 
-    if (error.error instanceof ErrorEvent)
-      message = error.error.message;
-    else
+    if (error.error instanceof Event)
       message = error.message;
+    else
+      message = error.error.errorMessage;
 
     return throwError(() => new Error(message));
   }
