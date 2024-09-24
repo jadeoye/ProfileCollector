@@ -37,6 +37,11 @@
             return new Envelope<T>(result, null);
         }
 
+        public static Envelope NotFound(string errorMessage)
+        {
+            return new Envelope(errorMessage);
+        }
+
         public static Envelope Error(string errorMessage)
         {
             return new Envelope(errorMessage);

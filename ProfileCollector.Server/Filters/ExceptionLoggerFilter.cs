@@ -19,8 +19,6 @@ namespace ProfileCollector.Server.Filters
             var log = ExceptionLog.Create(ex.Message, ex.StackTrace, DateTime.UtcNow, context.HttpContext.Request.Path, context.HttpContext.Request.Method);
 
             await _logger.LogAsync(log);
-
-            context.ExceptionHandled = true;
         }
     }
 }
