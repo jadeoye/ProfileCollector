@@ -1,5 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ProfileCollector.Domain.Entities;
+using ProfileCollector.Infrastructure.Interfaces;
 using ProfileCollector.Server.Utilities;
 
 namespace ProfileCollector.Server.Controllers
@@ -10,6 +12,12 @@ namespace ProfileCollector.Server.Controllers
     {
         private ISender? _mediator;
         protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+
+        protected readonly IExceptionLogger _logger;
+        public BaseController(IExceptionLogger logger)
+        {
+            _logger = logger;
+        }
 
         protected new ActionResult Ok()
         {
@@ -39,6 +47,13 @@ namespace ProfileCollector.Server.Controllers
         protected ActionResult Created<T>(string url, T result)
         {
             return base.Created(url, Envelope.Created(result));
+        }
+
+        protected async Task LogExceptionAsync(Exception ex)
+        {
+            var log = ExceptionLog.Create(ex.Message, ex.StackTrace, DateTime.UtcNow, HttpContext.Request.Path, HttpContext.Request.Method);
+
+            await _logger.LogAsync(log);
         }
     }
 }

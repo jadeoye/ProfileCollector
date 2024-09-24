@@ -3,6 +3,10 @@ using System.Reflection;
 using MediatR;
 using FluentValidation;
 using ProfileCollector.Application.DependencyInjections;
+using ProfileCollector.Server.Middlewares;
+using ProfileCollector.Infrastructure.Interfaces;
+using ProfileCollector.Infrastructure.Logging;
+using ProfileCollector.Server.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +24,16 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ExceptionLoggerFilter>();
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IExceptionLogger, ExceptionLogger>();
 
 var app = builder.Build();
 
@@ -42,6 +52,8 @@ app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionLoggerMiddleware>();
 
 app.MapControllers();
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProfileCollector.Application.Commands.Users;
 using ProfileCollector.Application.Queries.Users;
+using ProfileCollector.Infrastructure.Interfaces;
 
 namespace ProfileCollector.Server.Controllers
 {
@@ -9,6 +10,8 @@ namespace ProfileCollector.Server.Controllers
     public class UsersController : BaseController
     {
         private readonly string _controllerEndpoint = "/api/users";
+
+        public UsersController(IExceptionLogger logger) : base(logger) { }
 
         [HttpPost]
         public async Task<ActionResult> CreateAsync([FromBody] CreateUserCommand request, CancellationToken cancellationToken)
@@ -23,6 +26,7 @@ namespace ProfileCollector.Server.Controllers
             }
             catch (Exception e)
             {
+                await LogExceptionAsync(e);
                 return BadRequest(e.Message);
             }
         }
@@ -38,6 +42,7 @@ namespace ProfileCollector.Server.Controllers
             }
             catch (Exception e)
             {
+                await LogExceptionAsync(e);
                 return BadRequest(e.Message);
             }
         }
