@@ -13,12 +13,6 @@ namespace ProfileCollector.Server.Controllers
         private ISender? _mediator;
         protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
-        protected readonly IExceptionLogger _logger;
-        public BaseController(IExceptionLogger logger)
-        {
-            _logger = logger;
-        }
-
         protected new ActionResult Ok()
         {
             return base.Ok(Envelope.Ok());
@@ -49,11 +43,9 @@ namespace ProfileCollector.Server.Controllers
             return base.Created(url, Envelope.Created(result));
         }
 
-        protected async Task LogExceptionAsync(Exception ex)
+        protected ActionResult NotFound(string message)
         {
-            var log = ExceptionLog.Create(ex.Message, ex.StackTrace, DateTime.UtcNow, HttpContext.Request.Path, HttpContext.Request.Method);
-
-            await _logger.LogAsync(log);
+            return base.NotFound(Envelope.NotFound(message));
         }
     }
 }

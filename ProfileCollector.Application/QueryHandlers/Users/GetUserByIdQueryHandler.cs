@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using ProfileCollector.Application.Common.Exceptions;
 using ProfileCollector.Application.Interfaces.Repositories;
 using ProfileCollector.Application.Queries.Users;
 using ProfileCollector.Application.QueryHandlers.Users.Dtos;
@@ -23,7 +24,7 @@ namespace ProfileCollector.Application.QueryHandlers.Users
             var user = await _userRepository.GetByIdAsync(request.Id, cancellationToken);
 
             if (user == null)
-                throw new Exception("Cannot find User with the specified Id");
+                throw new NotFoundException("Id", "Cannot find User with the specified Id");
 
             var response = new GetUserByIdResponse();
 

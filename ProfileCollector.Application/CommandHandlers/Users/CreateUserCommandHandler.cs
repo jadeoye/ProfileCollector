@@ -3,6 +3,7 @@ using ProfileCollector.Application.CommandHandlers.Users.Dtos;
 using ProfileCollector.Application.Commands.Users;
 using ProfileCollector.Application.Interfaces.Repositories;
 using ProfileCollector.Domain.Entities;
+using ProfileCollector.Domain.Exceptions;
 using ProfileCollector.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace ProfileCollector.Application.CommandHandlers.Users
                     request.Address.State, request.Address.Zip, request.Address.Country);
 
                 if (addressResult.IsFailure)
-                    throw new Exception(addressResult.Error);
+                    throw new BusinessRuleException("Address", addressResult.Error);
 
                 user.UpdateAddress(addressResult.Value);
             }

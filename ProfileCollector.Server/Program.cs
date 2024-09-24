@@ -26,6 +26,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers(options =>
 {
+    options.Filters.Add<ApiExceptionFilterAttribute>();
     options.Filters.Add<ExceptionLoggerFilter>();
 });
 
